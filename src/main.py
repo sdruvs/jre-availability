@@ -5,7 +5,7 @@ import time
 from datetime import datetime
 import re
 
-# Check Java version and availability
+#Check Java version and availability
 def java_check():
     try:
         jre = os.popen("java -version 2>&1").read()
@@ -13,7 +13,7 @@ def java_check():
     except:
         return None
 
-# Install JRE if unavailable
+#Install JRE if unavailable
 def java_install():
     try:
         current_folder = str(os.path.abspath(os.getcwd()).replace('\\', '/'))
@@ -26,16 +26,16 @@ def java_install():
         print("Error")
         return 'unavailable'
 
-# Save the CSV file
+#Save the CSV file
 now = datetime.today().isoformat()
 now = now.replace(':', '-')
 now = now
 
-# Create a DataFrame
+#Create a DataFrame
 availability_data = [now]
 df = pd.DataFrame(availability_data, columns=['date-time'])
 
-# Regular expression to select the Java version
+#Regular expression to select the Java version
 text = java_check()
 pattern = r'java version "(.*?)"'
 match = re.search(pattern, text)
@@ -53,5 +53,5 @@ else:
 df['java-version'] = java_version
 df['available'] = java_available
 
-# Export the processed CSV
+#Export the processed CSV
 df.to_csv('java-availability.csv', sep=';', decimal=',', encoding='utf-8', index=False, mode='a', header=False)
